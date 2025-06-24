@@ -87,6 +87,12 @@ flutter:
     - assets/images/investment/awaed.png
     - assets/images/investment/dinar.png
     - assets/images/investment/moi.png
+    - assets/Cards/father card - 1.png
+    - assets/Cards/father card - 2.png
+    - assets/Cards/father card - 3.png
+    - assets/Cards/card - 1.png
+    - assets/Cards/card - 2.png
+    - assets/Cards/card - 3.png
     - assets/images/Bank/riyadh-bank.png
     - assets/images/Bank/al-rajhi.png
     - assets/images/Bank/snb.png
@@ -103,6 +109,7 @@ flutter:
     - assets/images/ehsan.png
     - assets/images/card.png
     - assets/images/logo.png
+    - assets/images/saudi.jpg
 
   #   - images/a_dot_ham.jpeg
 

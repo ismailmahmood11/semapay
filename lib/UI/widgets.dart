@@ -338,13 +338,16 @@ class MainButton extends StatelessWidget {
 class Cards extends StatelessWidget {
   const Cards({
     required this.image,
+    required this.images,
     super.key,
   });
 
   final String image;
-
+  final List<String> images;
   @override
   Widget build(BuildContext context) {
+
+
     return FadeIn(
       duration: Duration(milliseconds: 250),
       curve: Curves.easeIn,
@@ -353,18 +356,19 @@ class Cards extends StatelessWidget {
         height: 200,
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
-            return Container(
+            return SizedBox(
               width: 300,
               height: 200,
-              decoration: BoxDecoration(
-                color: [
-                  Color(0xff186A29),
-                  themeColor,
-                  Color(0xff282828),
-                ][index],
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Image.asset(image),
+              // decoration: BoxDecoration(
+              //   color: [
+              //     Color(0xff186A29),
+              //     themeColor,
+              //     Color(0xff282828),
+              //   ][index],
+              //   borderRadius: BorderRadius.circular(12),
+              // ),
+              // child: Image.asset(image),
+              child: Image.asset(images[index]),
             );
           },
           itemCount: 3,
@@ -531,9 +535,10 @@ class MainNavigationBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           UserProfile(
+            isAsset: true,
             image:
-                'https://t3.ftcdn.net/jpg/02/43/12/34/360_F_243123463_zTooub557xEWABDLk0jJklDyLSGl2jrr.jpg',
-            name: 'Muhammed',
+                'assets/images/saudi.jpg',
+            name: 'Abdalaziz',
           ),
           Icon(
             Icons.notifications,
@@ -563,7 +568,7 @@ class StudentNavigationBar extends StatelessWidget {
           UserProfile(
             isAsset: true,
             image: 'assets/images/Students/person 3.png',
-            name: 'Abdullah',
+            name: 'Saud',
           ),
           Icon(
             Icons.notifications,

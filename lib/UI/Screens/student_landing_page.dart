@@ -52,6 +52,11 @@ class StudentLandingPage extends StatelessWidget {
               ),
               Cards(
                 image: 'assets/images/student_card.png',
+                images: [
+                  'assets/Cards/card - 2.png',
+                  'assets/Cards/card - 1.png',
+                  'assets/Cards/card - 3.png',
+                ],
               ),
               Gap(mainGap),
               Padding(

@@ -46,6 +46,11 @@ class LandingPage extends StatelessWidget {
             ),
             Cards(
               image: 'assets/images/card.png',
+              images: [
+                'assets/Cards/father card - 2.png',
+                'assets/Cards/father card - 1.png',
+                'assets/Cards/father card - 3.png',
+              ],
             ),
             Gap(mainGap),
             Padding(
