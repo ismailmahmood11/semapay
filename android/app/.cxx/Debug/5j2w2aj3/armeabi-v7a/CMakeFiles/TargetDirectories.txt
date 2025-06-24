@@ -1,0 +1,2 @@
+/Users/semanoor/StudioProjects/semapay/android/app/.cxx/Debug/5j2w2aj3/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/semanoor/StudioProjects/semapay/android/app/.cxx/Debug/5j2w2aj3/armeabi-v7a/CMakeFiles/rebuild_cache.dir

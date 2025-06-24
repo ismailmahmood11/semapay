@@ -1,0 +1,2 @@
+/Users/semanoor/StudioProjects/semapay/android/app/.cxx/RelWithDebInfo/14164v4z/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/semanoor/StudioProjects/semapay/android/app/.cxx/RelWithDebInfo/14164v4z/armeabi-v7a/CMakeFiles/rebuild_cache.dir
