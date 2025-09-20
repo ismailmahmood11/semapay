@@ -225,7 +225,7 @@ class _AddMoneyState extends State<AddMoney> {
                             },
                             hasBothPadding: true,
                             paddingType: 'horizontal',
-                            customVerticalPadding: 3,
+                            customVerticalPadding: 2 + 1,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
