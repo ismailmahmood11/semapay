@@ -8,6 +8,7 @@ import 'package:semapay/UI/home_page.dart';
 
 import 'Cubit/Exam/exam_cubit.dart';
 
+//jawani
 void main() {
   runApp(const MyApp());
 }
