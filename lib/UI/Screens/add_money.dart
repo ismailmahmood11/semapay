@@ -17,6 +17,7 @@ class AddMoney extends StatefulWidget {
 
 class _AddMoneyState extends State<AddMoney> {
   double currentValue = 0;
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,19 +37,151 @@ class _AddMoneyState extends State<AddMoney> {
                         MainNavigationBar(),
                         Gap(mainGap),
                         Text(
-                          'Add Money',
+                          'Add Jawani Credits',
                           style: titleStyle.copyWith(color: Colors.black),
                         ),
                         Gap(secondaryGap),
-                        MainTextField(
-                          onChanged: (value) {
-                            double enteredAmount =
-                                double.tryParse(value) ?? 0.0;
-                            currentValue = enteredAmount;
-                          },
-                          isAmount: true,
-                          title: 'Amount',
-                          hint: '100',
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            MainButton(
+                              color: Colors.transparent,
+                              paddingType: 'horizontal',
+                              child: TextField(
+                                // controller: controller,
+                                controller: controller,
+                                onChanged: (value) {
+                                  double enteredAmount =
+                                      double.tryParse(value) ?? 0.0;
+                                  currentValue = enteredAmount;
+                                },
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Enter Amount Here',
+                                  hintStyle: titleStyle.copyWith(
+                                      color: nonFocusedColor, fontSize: 20),
+                                  // suffix: saudiRiyal(13),
+                                  suffix: saudiRiyal(30),
+                                ),
+                                textInputAction: TextInputAction.done,
+                                keyboardType: TextInputType.number,
+                                onSubmitted: (value) {
+                                  FocusScope.of(context).unfocus();
+                                },
+                                onTapOutside: (event) {
+                                  FocusScope.of(context).unfocus();
+                                },
+                                style: titleStyle.copyWith(
+                                    color: Colors.black, fontSize: 40),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Gap(secondaryGap),
+                        Gap(secondaryGap),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MainButton(
+                              onTap: () {
+                                setState(() {
+                                  currentValue = 10;
+                                });
+                                controller.text = '10';
+                              },
+                              hasBothPadding: true,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '10',
+                                    style: titleStyle.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Gap(3),
+                                  saudiRiyal(18)
+                                ],
+                              ),
+                            ),
+                            MainButton(
+                              onTap: () {
+                                setState(() {
+                                  currentValue = 50;
+                                });
+                                controller.text = '50';
+                              },
+                              hasBothPadding: true,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '50',
+                                    style: titleStyle.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Gap(3),
+                                  saudiRiyal(18)
+                                ],
+                              ),
+                            ),
+                            MainButton(
+                              onTap: () {
+                                setState(() {
+                                  currentValue = 100;
+                                });
+                                controller.text = '100';
+                              },
+                              hasBothPadding: true,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '100',
+                                    style: titleStyle.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Gap(3),
+                                  saudiRiyal(18)
+                                ],
+                              ),
+                            ),
+                            MainButton(
+                              onTap: () {
+                                setState(() {
+                                  currentValue = 1000;
+                                });
+                                controller.text = '1000';
+                              },
+                              hasBothPadding: true,
+                              child: Row(
+                                children: [
+                                  Text(
+                                    '1000',
+                                    style: titleStyle.copyWith(
+                                        color: Colors.black,
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700),
+                                  ),
+                                  Gap(3),
+                                  saudiRiyal(18)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        Gap(mainGap * 10),
+                        Row(
+                          children: [
+                            Text(
+                              'Jawani Credits = $currentValue',
+                              style: titleStyle.copyWith(color: Colors.black),
+                            ),
+                            Gap(5),
+                            jawaniCoin(15),
+                          ],
                         ),
                         Gap(secondaryGap),
                         MainButton(
@@ -101,7 +234,8 @@ class _AddMoneyState extends State<AddMoney> {
                                   width: 55,
                                 ),
                               ],
-                            ))
+                            )),
+                        Gap(bottomGap),
                       ],
                     ),
                   ),

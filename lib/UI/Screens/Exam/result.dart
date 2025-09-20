@@ -5,6 +5,7 @@ import 'package:semapay/Cubit/Balance/balance_cubit.dart';
 import 'package:semapay/Cubit/Exam/exam_cubit.dart';
 import 'package:semapay/Cubit/Task%20creation/task_creation_cubit.dart';
 import 'package:semapay/List/exam.dart';
+import 'package:semapay/UI/Screens/kids_landing_page.dart';
 import 'package:semapay/UI/Screens/student_landing_page.dart';
 
 import '../../const.dart';
@@ -142,14 +143,23 @@ class Result extends StatelessWidget {
                         return MainButton(
                             customVerticalPadding: 15,
                             onTap: () {
-                              Navigator.pushReplacement((context),
-                                  MaterialPageRoute(builder: (context) {
-                                return StudentLandingPage();
-                              }));
                               context
                                   .read<ExamCubit>()
                                   .addCompletedIndex(state.index);
-
+                              if (state.isKids) {
+                                Navigator.pushReplacement((context),
+                                    MaterialPageRoute(builder: (context) {
+                                  return KidsLandingPage();
+                                }));
+                                context
+                                    .read<TaskCreationCubit>()
+                                    .updateTask(isKids: false);
+                              } else {
+                                Navigator.pushReplacement((context),
+                                    MaterialPageRoute(builder: (context) {
+                                  return StudentLandingPage();
+                                }));
+                              }
                               context.read<BalanceCubit>().balance(
                                     pendingBalance: balance.pendingBalance -
                                         state.tasks[state.index].amount,

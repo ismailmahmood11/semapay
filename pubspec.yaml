@@ -48,6 +48,8 @@ dependencies:
   percent_indicator: ^4.2.4
   fl_chart: ^0.71.0
   meta: ^1.16.0
+  smooth_page_indicator: ^1.2.1
+  iconsax_plus: ^1.0.0
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +88,7 @@ flutter:
     - assets/images/investment/manafa.png
     - assets/images/investment/awaed.png
     - assets/images/investment/dinar.png
+    - assets/images/kids-background.png
     - assets/images/investment/moi.png
     - assets/Cards/father card - 1.png
     - assets/Cards/father card - 2.png
@@ -106,10 +109,15 @@ flutter:
     - assets/images/book.png
     - assets/images/book_page_2.png
     - assets/images/saudi_saving.png
+    - assets/images/Saudi riyal icon.png
     - assets/images/ehsan.png
     - assets/images/card.png
     - assets/images/logo.png
     - assets/images/saudi.jpg
+    - assets/images/bee_selected.png
+    - assets/images/bee.png
+    - assets/images/business_logo.png
+    - assets/images/Semanoor PNG - Logo.png
 
   #   - images/a_dot_ham.jpeg
 

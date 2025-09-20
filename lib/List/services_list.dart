@@ -1,198 +1,202 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:iconsax_plus/iconsax_plus.dart';
 import 'package:semapay/Cubit/Navigation/navigation_cubit.dart';
 import 'package:semapay/UI/Screens/Education/select_student.dart';
 import 'package:semapay/UI/Screens/service_pages.dart';
 
 import '../UI/const.dart';
 
+// --- Placeholder for your theme color ---
+// TODO: Make sure this `themeColor` points to the actual color in your UI constants.
+
+// 1. MODIFIED SERVICESLIST CLASS
+// It now uses `iconBuilder` to create icons on demand with the correct color.
 class ServicesList {
   ServicesList({
     required this.title,
-    required this.icon,
+    required this.iconBuilder, // Changed from 'icon'
     this.onlyString = false,
+    this.color, // Optional color override for a specific item
     this.onTap,
   });
 
-  Widget icon;
-  String title;
-  bool onlyString;
-  Function()? onTap;
+  final String title;
+  final bool onlyString;
+  final Function()? onTap;
+  final Color? color;
+
+  // Stores a function that knows how to build the icon
+  final Widget Function(Color? color) iconBuilder;
+
+  // This getter builds the final icon widget when it's needed.
+  // It applies the item's specific color or falls back to the themeColor.
+  Widget get icon {
+    return iconBuilder(color ?? themeColor);
+  }
 }
+
+// 2. UPDATED LIST DEFINITIONS
+// All lists now use the `iconBuilder` pattern.
 
 List<ServicesList> servicesList = [
   ServicesList(
     title: 'Transfer',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedArrowDataTransferHorizontal,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Request',
-    icon: Icon(
+    iconBuilder: (c) => Icon(
       Icons.u_turn_left_rounded,
-      color: themeColor,
-      size: 25,
+      color: c,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'International Transfer',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedAirplaneTakeOff01,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Local Bank Transfer',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedBank,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
-      title: 'Split Money',
-      icon: Icon(
-        Icons.vertical_split_outlined,
-        color: themeColor,
-        size: 25,
-      )),
+    title: 'Split Money',
+    iconBuilder: (c) => Icon(
+      Icons.vertical_split_outlined,
+      color: c,
+      size: 35,
+    ),
+  ),
   ServicesList(
-      title: 'Send Gift',
-      icon: Icon(
-        Icons.card_giftcard_outlined,
-        color: themeColor,
-        size: 25,
-      )),
-  // ServicesList(
-  //   title: 'Domestic Labour Salaries',
-  //   icon: HugeIcon(
-  //     icon: HugeIcons.strokeRoundedCashier02,
-  //     color: themeColor,
-  //     size: 30,
-  //   ),
-  // ),
+    title: 'Send Gift',
+    iconBuilder: (c) => Icon(
+      Icons.card_giftcard_outlined,
+      color: c,
+      size: 35,
+    ),
+  ),
 ];
+
 List<ServicesList> studentServicesList = [
   ServicesList(
     title: 'Transfer',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedArrowDataTransferHorizontal,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Request',
-    icon: Icon(
+    iconBuilder: (c) => Icon(
       Icons.u_turn_left_rounded,
-      color: themeColor,
-      size: 25,
+      color: c,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'International Transfer',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedAirplaneTakeOff01,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Local Bank Transfer',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedBank,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
-  //
   ServicesList(
     title: 'Saving',
-    icon: HugeIcon(
-      icon: HugeIcons.strokeRoundedMoneySavingJar,
-      color: themeColor,
-      size: 30,
+    iconBuilder: (_) => Image.asset(
+      'assets/images/saudi_saving.png',
+      width: 27,
     ),
   ),
   ServicesList(
     title: 'Investment',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedMoneyAdd01,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Responsibility',
-    icon: Icon(
+    iconBuilder: (c) => Icon(
       Icons.work_outline,
-      color: themeColor,
-      size: 25,
+      color: c,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Entrepreneurship',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedHotel01,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
   ServicesList(
     title: 'Health',
-    icon: Icon(
+    iconBuilder: (c) => Icon(
       Icons.health_and_safety_outlined,
-      color: themeColor,
+      color: c,
       size: 25,
     ),
   ),
   ServicesList(
     title: 'Charity',
-    icon: HugeIcon(
+    iconBuilder: (c) => HugeIcon(
       icon: HugeIcons.strokeRoundedCharity,
-      color: themeColor,
-      size: 30,
+      color: c ?? themeColor,
+      size: 35,
     ),
   ),
-
   ServicesList(
-      title: 'Split Money',
-      icon: Icon(
-        Icons.vertical_split_outlined,
-        color: themeColor,
-        size: 25,
-      )),
+    title: 'Split Money',
+    iconBuilder: (c) => Icon(
+      Icons.vertical_split_outlined,
+      color: c,
+      size: 35,
+    ),
+  ),
   ServicesList(
-      title: 'Send Gift',
-      icon: Icon(
-        Icons.card_giftcard_outlined,
-        color: themeColor,
-        size: 25,
-      )),
-  // ServicesList(
-  //   title: 'Domestic Labour Salaries',
-  //   icon: HugeIcon(
-  //     icon: HugeIcons.strokeRoundedCashier02,
-  //     color: themeColor,
-  //     size: 30,
-  //   ),
-  // ),
+    title: 'Send Gift',
+    iconBuilder: (c) => Icon(
+      Icons.card_giftcard_outlined,
+      color: c,
+      size: 35,
+    ),
+  ),
 ];
 
 List<ServicesList> getSemanoorSmartBookList(BuildContext context) {
   return [
     ServicesList(
       onlyString: true,
-      title: 'SEMANOOR',
-      icon: HugeIcon(
-        icon: HugeIcons.strokeRoundedCashier02,
-        color: themeColor,
-        size: 30,
+      title: 'Knowledge\nHub',
+      iconBuilder: (_) => Image.asset(
+        'assets/images/Semanoor PNG - Logo.png',
+        width: 64,
       ),
     ),
     ServicesList(
@@ -200,31 +204,29 @@ List<ServicesList> getSemanoorSmartBookList(BuildContext context) {
         context.read<NavigationCubit>().page(SelectStudentEducation());
       },
       title: 'Education',
-      icon: Icon(
+      iconBuilder: (c) => Icon(
         Icons.school_outlined,
-        color: themeColor,
-        size: 25,
+        color: c,
+        size: 35,
       ),
     ),
     ServicesList(
-      title: 'Donation',
-      onTap: () => context
-          .read<NavigationCubit>()
-          .serviceName(EhsanDonationWidget(), 'donation'),
-      icon: HugeIcon(
-        icon: HugeIcons.strokeRoundedCharity,
-        color: themeColor,
-        size: 30,
-      ),
+      onTap: () {
+        context.read<NavigationCubit>().page(SelectStudentEducation());
+      },
+      title: 'Training',
+      iconBuilder: (c) =>
+          Icon(IconsaxPlusLinear.note, fill: .1, color: c, size: 35),
     ),
     ServicesList(
       title: 'Saving',
       onTap: () => context
           .read<NavigationCubit>()
           .serviceName(SavingsOverviewWidget(), 'Saving'),
-      icon: Image.asset(
+      // For Image.asset, we ignore the color parameter by using '_'
+      iconBuilder: (_) => Image.asset(
         'assets/images/saudi_saving.png',
-        width: 30,
+        width: 27,
       ),
     ),
     ServicesList(
@@ -232,47 +234,64 @@ List<ServicesList> getSemanoorSmartBookList(BuildContext context) {
           .read<NavigationCubit>()
           .serviceName(Investment(), 'Investment'),
       title: 'Investment',
-      icon: Icon(
+      iconBuilder: (c) => Icon(
         Icons.trending_up,
-        size: 30,
-        color: themeColor,
+        size: 35,
+        color: c,
       ),
     ),
     ServicesList(
       onTap: () => context
           .read<NavigationCubit>()
           .serviceName(Entrepreneurship(), 'Entrepreneurship'),
-      title: 'Entrepreneurship',
-      icon: Icon(
-        Icons.work_outline,
-        color: themeColor,
-        size: 25,
-      ),
-    ),
-    ServicesList(
-      title: 'Volunteer',
-      icon: Icon(
-        Icons.volunteer_activism_outlined,
-        fill: 0,
-        size: 30,
-        color: themeColor,
+      title: 'Entrepreneur',
+      iconBuilder: (_) => Image.asset(
+        'assets/images/business_logo.png',
+        width: 27,
       ),
     ),
     ServicesList(
       title: 'Health',
-      icon: HugeIcon(
-        icon: HugeIcons.strokeRoundedHealth,
-        color: themeColor,
-        size: 30,
-      ),
+      iconBuilder: (c) =>
+          Icon(IconsaxPlusLinear.heart_circle, fill: .1, color: c, size: 35),
+    ),
+    ServicesList(
+      title: 'Library',
+      iconBuilder: (c) =>
+          Icon(IconsaxPlusLinear.book_1, fill: .1, color: c, size: 35),
     ),
     ServicesList(
       title: 'Special Task',
-      icon: HugeIcon(
+      iconBuilder: (c) => HugeIcon(
         icon: HugeIcons.strokeRoundedTask01,
-        color: themeColor,
-        size: 30,
+        color: c ?? themeColor,
+        size: 35,
       ),
+    ),
+    ServicesList(
+      title: 'Donation',
+      onTap: () => context
+          .read<NavigationCubit>()
+          .serviceName(EhsanDonationWidget(), 'donation'),
+      iconBuilder: (c) => HugeIcon(
+        icon: HugeIcons.strokeRoundedCharity,
+        color: c ?? themeColor,
+        size: 35,
+      ),
+    ),
+    ServicesList(
+      title: 'Volunteer',
+      iconBuilder: (c) => Icon(
+        Icons.volunteer_activism_outlined,
+        fill: 0,
+        size: 35,
+        color: c,
+      ),
+    ),
+    ServicesList(
+      title: 'Market Place',
+      iconBuilder: (c) =>
+          Icon(IconsaxPlusLinear.shop, fill: .1, color: c, size: 35),
     ),
   ];
 }

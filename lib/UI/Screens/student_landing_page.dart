@@ -12,7 +12,7 @@ import '../widgets.dart';
 class StudentLandingPage extends StatelessWidget {
   const StudentLandingPage({super.key});
 
-  static const double buttonPadding = 15;
+  static const double buttonPadding = 11;
   static const double buttonPaddingService = 30;
 
   @override
@@ -81,7 +81,7 @@ class StudentLandingPage extends StatelessWidget {
                                 ),
                                 Gap(3),
                                 Text(
-                                  'Add money',
+                                  'Add Credits',
                                   style: secondaryStyle,
                                 ),
                               ],

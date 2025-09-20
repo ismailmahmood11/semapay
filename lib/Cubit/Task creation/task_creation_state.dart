@@ -7,23 +7,24 @@ abstract class TaskCreationState {
   final double amount;
   final DateTime dueDate;
   final bool isAmount;
+  final bool isEditing;
+  final bool isKids;
   final List<Task> tasks;
   final int index;
-  final bool isEditing;
   final int taskIndexToEdit;
 
-  TaskCreationState({
-    required this.name,
-    required this.book,
-    required this.giftCard,
-    required this.amount,
-    required this.dueDate,
-    required this.isAmount,
-    required this.tasks,
-    required this.index,
-    required this.isEditing,
-    required this.taskIndexToEdit,
-  });
+  TaskCreationState(
+      {required this.name,
+      required this.book,
+      required this.giftCard,
+      required this.amount,
+      required this.dueDate,
+      required this.isAmount,
+      required this.tasks,
+      required this.index,
+      required this.isEditing,
+      required this.taskIndexToEdit,
+      required this.isKids});
 }
 
 class TaskCreationInitial extends TaskCreationState {
@@ -38,5 +39,6 @@ class TaskCreationInitial extends TaskCreationState {
     required super.index,
     required super.isEditing,
     required super.taskIndexToEdit,
+    required super.isKids,
   });
 }

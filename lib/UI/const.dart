@@ -34,12 +34,17 @@ const double p = 18;
 
 //Color
 const Color textColor = Color(0xff676767);
-const Color themeColor = Color(0xff003757);
+
+const Color themeColor = Color(0xff6528B6);
 const Color backgroundColor = Color(0xffFAFAFA);
-const Color secondaryThemeColor = Color(0xff1A7EAF);
+const Color secondaryThemeColor = Color(0xffA867FF);
 const Color nonFocusedColor = Color(0xff969696);
-const Color buttonColor = Color(0x0F003757);
+const Color buttonColor = Color(0xffECEBF0);
 const Color warningColor = Color(0xffFEA025);
+//Kids color
+const Color kidsColor1 = Color(0xffFBE8B3);
+const Color kidsColor2 = Color(0xffCDFAD2);
+const Color kidsColor3 = Color(0xffB5E3FF);
 
 //Fit
 const BoxFit fit = BoxFit.scaleDown;
@@ -64,6 +69,7 @@ const double g5 = 50;
 const double g10 = 100;
 const double g15 = 150;
 const double g20 = 200;
+const double kidsBorderRadius = 30;
 
 //Animation Duration
 const Duration animationDuration = Duration(milliseconds: 300);
@@ -91,9 +97,43 @@ double screenHeight(BuildContext context) {
 
 //Saudi Riyal
 
-Widget saudiRiyal(double? size) {
+Widget jawaniCoin(double? size) {
   return Image.asset(
     'assets/images/Saudi riyal.png',
     width: size ?? 25,
   );
+}
+
+Widget saudiRiyal(double? size) {
+  return Image.asset(
+    'assets/images/Saudi riyal icon.png',
+    width: size ?? 25,
+  );
+}
+
+//Format Number
+
+// String formatBalance(num balance) {
+//   final formatter = NumberFormat.compact();
+//
+//   return formatter.format(balance).toLowerCase();
+// }
+
+String formatBalance(num number) {
+  if (number < 1000) {
+    return number.toStringAsFixed(0);
+  }
+
+  if (number >= 1000000000) {
+    // Use integer division '~/' to get rid of the decimal part
+    return '${number ~/ 1000000000}b';
+  }
+  if (number >= 1000000) {
+    return '${number ~/ 1000000}m';
+  }
+  if (number >= 1000) {
+    return '${number ~/ 1000}k';
+  }
+
+  return number.toStringAsFixed(0);
 }

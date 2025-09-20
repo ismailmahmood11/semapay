@@ -16,7 +16,7 @@ import '../widgets.dart';
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
-  static const double buttonPadding = 15;
+  static const double buttonPadding = 11;
   static const double buttonPaddingService = 30;
 
   @override
@@ -77,7 +77,7 @@ class LandingPage extends StatelessWidget {
                               ),
                               Gap(3),
                               Text(
-                                'Add money',
+                                'Add Credits',
                                 style: secondaryStyle,
                               ),
                             ],
@@ -155,7 +155,7 @@ class LandingPage extends StatelessWidget {
                           )),
                       MainButton(
                           height: 100,
-                          width: 110,
+                          width: 90,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -214,7 +214,7 @@ class LandingPage extends StatelessWidget {
                           Text(
                             'NOOR',
                             style: TextStyle(
-                              color: Color(0xff0073A7),
+                              color: secondaryThemeColor,
                               fontWeight: FontWeight.bold,
                               fontSize: mainFontSize,
                               letterSpacing: -.6,

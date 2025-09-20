@@ -8,16 +8,21 @@ import 'package:intl/intl.dart';
 import 'package:semapay/Cubit/Exam/exam_cubit.dart';
 import 'package:semapay/Cubit/Navigation/navigation_cubit.dart';
 import 'package:semapay/Cubit/Task%20creation/task_creation_cubit.dart';
+import 'package:semapay/UI/Screens/jawani.dart';
+import 'package:semapay/UI/Screens/kids_landing_page.dart';
 import 'package:semapay/UI/Screens/services.dart';
 import 'package:semapay/UI/Screens/students.dart';
 import 'package:semapay/UI/home_page.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../List/services_list.dart';
 import 'Screens/book.dart';
 import 'Screens/landing_page.dart';
 import 'Screens/student_landing_page.dart';
 import 'const.dart';
 
 //Student Card
+//ignore: must_be_immutable
 class StudentCard extends StatefulWidget {
   StudentCard({
     super.key,
@@ -217,23 +222,51 @@ class BottomBar extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.work_outline,
-                          color: page is! LandingPage && page is! Students
-                              ? themeColor
-                              : nonFocusedColor,
+                          color:
+                              page is Services ? themeColor : nonFocusedColor,
                           size: 30,
                         ),
                         Text(
                           'Services',
                           style: secondaryStyle.copyWith(
-                              fontWeight:
-                                  page is! LandingPage && page is! Students
-                                      ? FontWeight.bold
-                                      : FontWeight.w500,
-                              letterSpacing:
-                                  page is! LandingPage && page is! Students
-                                      ? -.3
-                                      : null,
-                              color: page is! LandingPage && page is! Students
+                              fontWeight: page is Services
+                                  ? FontWeight.bold
+                                  : FontWeight.w500,
+                              letterSpacing: page is Services ? -.3 : null,
+                              color: page is Services ? themeColor : textColor),
+                        )
+                      ],
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () => context.read<NavigationCubit>().page(Jawani()),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          page is! LandingPage &&
+                                  page is! Students &&
+                                  page is! Services
+                              ? 'assets/images/bee_selected.png'
+                              : 'assets/images/bee.png',
+                          height: 30,
+                        ),
+                        Text(
+                          'Jawani',
+                          style: secondaryStyle.copyWith(
+                              fontWeight: page is! LandingPage &&
+                                      page is! Students &&
+                                      page is! Services
+                                  ? FontWeight.bold
+                                  : FontWeight.w500,
+                              letterSpacing: page is! LandingPage &&
+                                      page is! Students &&
+                                      page is! Services
+                                  ? -.3
+                                  : null,
+                              color: page is! LandingPage &&
+                                      page is! Students &&
+                                      page is! Services
                                   ? themeColor
                                   : textColor),
                         )
@@ -266,9 +299,18 @@ class MainButton extends StatelessWidget {
     this.customVerticalPadding,
     this.customHorizontalPadding,
     this.borderSize,
+    this.borderRadius,
     this.borderColor,
     this.outsideBottomPadding,
     this.outsideTopPadding,
+    this.hasShadow = false,
+    this.isCustomBorderRadius = false,
+    this.borderRadiusTopRight,
+    this.borderRadiusTopLeft,
+    this.borderRadiusBottomLeft,
+    this.borderRadiusBottomRight,
+    this.shadow,
+    this.shadowColor,
     super.key,
   });
 
@@ -278,6 +320,8 @@ class MainButton extends StatelessWidget {
   final Color? borderColor;
   final bool hasPadding;
   final bool hasBothPadding;
+  final bool? hasShadow;
+  final bool? isCustomBorderRadius;
   final String paddingType;
   final double? customVerticalPadding;
   final double? customHorizontalPadding;
@@ -286,8 +330,15 @@ class MainButton extends StatelessWidget {
   final double? outsideBottomPadding;
   final double? outsideTopPadding;
   final double? borderSize;
+  final double? borderRadius;
+  final double? borderRadiusTopRight;
+  final double? borderRadiusTopLeft;
+  final double? borderRadiusBottomLeft;
+  final double? borderRadiusBottomRight;
   final double? width;
   final double? height;
+  final double? shadow;
+  final Color? shadowColor;
 
   @override
   Widget build(BuildContext context) {
@@ -317,16 +368,38 @@ class MainButton extends StatelessWidget {
                     : 0,
           ),
           decoration: ShapeDecoration(
-            color: color ?? buttonColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-              side: BorderSide(
-                color: borderColor ?? Colors.transparent,
-                // Change to your desired border color
-                width: borderSize ?? 0, // Adjust border thickness
+              color: color ?? buttonColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: isCustomBorderRadius == true
+                    ? BorderRadius.only(
+                        topLeft: Radius.circular(borderRadiusTopLeft ?? 0),
+                        topRight: Radius.circular(borderRadiusTopRight ?? 0),
+                        bottomLeft:
+                            Radius.circular(borderRadiusBottomLeft ?? 0),
+                        bottomRight:
+                            Radius.circular(borderRadiusBottomRight ?? 0),
+                      )
+                    : BorderRadius.circular(borderRadius ?? 8),
+                side: BorderSide(
+                  color: borderColor ?? Colors.transparent,
+                  // Change to your desired border color
+                  width: borderSize ?? 0, // Adjust border thickness
+                ),
               ),
-            ),
-          ),
+              shadows: [
+                hasShadow == true
+                    ? BoxShadow(
+                        spreadRadius: 0,
+                        color:
+                            shadowColor ?? Colors.black.withValues(alpha: .3),
+                        blurRadius: shadow ?? 3,
+                        offset: Offset(0, 2))
+                    : BoxShadow(
+                        spreadRadius: 0,
+                        color: Colors.transparent,
+                        blurRadius: 0,
+                      )
+              ]),
           child: child,
         ),
       ),
@@ -344,10 +417,9 @@ class Cards extends StatelessWidget {
 
   final String image;
   final List<String> images;
+
   @override
   Widget build(BuildContext context) {
-
-
     return FadeIn(
       duration: Duration(milliseconds: 250),
       curve: Curves.easeIn,
@@ -398,15 +470,17 @@ class CurrentBalance extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Current Balance', style: titleStyle),
+        Text('Balance', style: titleStyle),
         FadeIn(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              saudiRiyal(25),
+              jawaniCoin(25),
               Gap(2),
               Text(
-                balance.toStringAsFixed(0),
+                "${balance.toInt()}",
+                softWrap: true,
+                overflow: TextOverflow.fade,
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -449,11 +523,11 @@ class PendingBalance extends StatelessWidget {
             children: [
               Opacity(
                 opacity: .65,
-                child: saudiRiyal(25),
+                child: jawaniCoin(25),
               ),
               Gap(2),
               Text(
-                balance.toStringAsFixed(0),
+                formatBalance(balance),
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
@@ -531,13 +605,16 @@ class MainNavigationBar extends StatelessWidget {
           MaterialPageRoute(builder: (context) {
         return StudentLandingPage();
       })),
+      onLongPress: () => Navigator.pushReplacement((context),
+          MaterialPageRoute(builder: (context) {
+        return KidsLandingPage();
+      })),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           UserProfile(
             isAsset: true,
-            image:
-                'assets/images/saudi.jpg',
+            image: 'assets/images/saudi.jpg',
             name: 'Abdalaziz',
           ),
           Icon(
@@ -561,6 +638,10 @@ class StudentNavigationBar extends StatelessWidget {
       onTap: () => Navigator.pushReplacement((context),
           MaterialPageRoute(builder: (context) {
         return HomePage();
+      })),
+      onLongPress: () => Navigator.pushReplacement((context),
+          MaterialPageRoute(builder: (context) {
+        return KidsLandingPage();
       })),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -635,7 +716,7 @@ class TaskCard extends StatelessWidget {
                 isAmount
                     ? Row(
                         children: [
-                          saudiRiyal(12),
+                          jawaniCoin(12),
                           Text(
                             amount.toString(),
                             style: secondaryStyle.copyWith(
@@ -698,7 +779,7 @@ class MainTextField extends StatelessWidget {
               hintStyle: titleStyle.copyWith(
                 color: nonFocusedColor,
               ),
-              suffix: isAmount ? saudiRiyal(13) : null,
+              suffix: isAmount ? jawaniCoin(13) : null,
             ),
             textInputAction: TextInputAction.done,
             keyboardType: isAmount ? TextInputType.number : TextInputType.name,
@@ -755,7 +836,9 @@ class MainDatePicker extends StatelessWidget {
         );
 
         if (picked != null && picked != state.dueDate) {
-          context.read<TaskCreationCubit>().updateDueDate(picked);
+          if (context.mounted) {
+            context.read<TaskCreationCubit>().updateDueDate(picked);
+          }
         }
       },
       child: Text(
@@ -899,10 +982,10 @@ class SmartContractWidget extends StatelessWidget {
                                   state.tasks[i].isAmount
                                       ? Row(
                                           children: [
-                                            saudiRiyal(15),
+                                            jawaniCoin(15),
                                             Text(
-                                              state.tasks[i].amount
-                                                  .toStringAsFixed(0),
+                                              formatBalance(
+                                                  state.tasks[i].amount),
                                               style: titleStyle.copyWith(
                                                 color: Colors.black,
                                               ),
@@ -931,6 +1014,311 @@ class SmartContractWidget extends StatelessWidget {
                 ),
               );
       },
+    );
+  }
+}
+
+// Kids Smart contract card
+
+class KidsSmartContractWidget extends StatelessWidget {
+  const KidsSmartContractWidget({
+    super.key,
+    required this.remainingDate,
+    required this.i,
+    required this.state,
+  });
+
+  final int remainingDate;
+  final int i;
+  final TaskCreationState state;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ExamCubit, ExamState>(
+      builder: (context, exam) {
+        return exam.isCompleted.contains(i)
+            ? MainButton(
+                borderColor: themeColor,
+                borderSize: 1.5,
+                customVerticalPadding: 30,
+                borderRadius: kidsBorderRadius,
+                outsideBottomPadding: secondaryGap,
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        state.tasks[i].name.isEmpty
+                            ? 'Task ${i + 1}'
+                            : state.tasks[i].name,
+                        style: titleStyle.copyWith(color: themeColor),
+                      ),
+                      Gap(secondaryGap),
+                      MainButton(
+                        borderColor: themeColor,
+                        borderRadius: kidsBorderRadius,
+                        borderSize: 1.5,
+                        hasBothPadding: true,
+                        customVerticalPadding: 5,
+                        customHorizontalPadding: 80,
+                        child: Text(
+                          'Completed',
+                          style: titleStyle.copyWith(color: themeColor),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            : MainButton(
+                onTap: () {
+                  context
+                      .read<TaskCreationCubit>()
+                      .updateTask(index: i, isKids: true);
+                  Navigator.push((context),
+                      MaterialPageRoute(builder: (context) {
+                    return Book();
+                  }));
+                },
+                outsideBottomPadding: secondaryGap,
+                hasBothPadding: true,
+                borderRadius: kidsBorderRadius,
+                child: Column(
+                  children: [
+                    MainButton(
+                      hasPadding: true,
+                      hasBothPadding: true,
+                      borderRadius: kidsBorderRadius,
+                      customVerticalPadding: 7,
+                      customHorizontalPadding: 10,
+                      width: double.infinity,
+                      borderSize: 2,
+                      borderColor: remainingDate < 5
+                          ? Color(0xff9B0104)
+                          : remainingDate < 10
+                              ? Colors.deepOrange
+                              : Colors.green,
+                      color: remainingDate < 5
+                          ? Color(0xffFF6265)
+                          : remainingDate < 10
+                              ? Colors.deepOrangeAccent
+                              : Colors.green.withValues(alpha: .7),
+                      child: Center(
+                        child: Text(
+                          '$remainingDate ${remainingDate == 1 ? 'Day' : 'Days'} Remaining',
+                          style: secondaryStyle.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Gap(secondaryGap),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: 210,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              MainButton(
+                                borderSize: 2,
+                                borderColor: themeColor,
+                                borderRadius: kidsBorderRadius,
+                                hasBothPadding: true,
+                                customVerticalPadding: 8,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Reward ',
+                                      style: titleStyle.copyWith(
+                                          color: themeColor),
+                                    ),
+                                    state.tasks[i].isAmount
+                                        ? Row(
+                                            children: [
+                                              jawaniCoin(15),
+                                              Text(
+                                                formatBalance(
+                                                    state.tasks[i].amount),
+                                                style: titleStyle.copyWith(
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                        : Image.asset(
+                                            state.tasks[i].giftCard,
+                                            width: 30,
+                                          )
+                                  ],
+                                ),
+                              ),
+                              Gap(secondaryGap),
+                              Text(
+                                '${state.tasks[i].name.isEmpty ? 'Task ${i + 1}' : state.tasks[i].name} (${state.tasks[i].book})',
+                                style: titleStyle.copyWith(color: themeColor),
+                              ),
+                              Gap(g1),
+                              Text(
+                                '1. Complete the Test within ${DateFormat('dd/MM/yyyy').format(state.tasks[i].dueDate)}'
+                                '\n2. Score above 90%',
+                                style: secondaryStyle.copyWith(
+                                    color: textColor,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              Gap(g1),
+                            ],
+                          ),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            'assets/images/Books/${state.tasks[i].book.toLowerCase()}.png',
+                            width: 100,
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              );
+      },
+    );
+  }
+}
+
+//Kids Services
+
+class KidsServices extends StatefulWidget {
+  const KidsServices({super.key});
+
+  @override
+  State<KidsServices> createState() => _KidsServicesState();
+}
+
+final colors = const [
+  Colors.red,
+  Colors.green,
+  Colors.greenAccent,
+  Colors.amberAccent,
+  Colors.blue,
+  Colors.green,
+  Colors.teal,
+  Colors.amber,
+  Colors.brown,
+  Colors.redAccent,
+  Colors.tealAccent,
+];
+
+class _KidsServicesState extends State<KidsServices> {
+  // 1. Create a PageController and manage its state
+  late final PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the controller. The viewportFraction is set here.
+    _pageController = PageController(viewportFraction: 0.35);
+  }
+
+  @override
+  void dispose() {
+    // 4. Don't forget to dispose of the controller
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // 2. Use a Column to stack the PageView and the dots
+    return Column(
+      children: [
+        // Give the PageView a specific height so the Column can layout correctly
+        SizedBox(
+          height: 130, // Adjust this height to fit your content
+          child: PageView.builder(
+            controller: _pageController,
+            // Use the stateful controller
+            scrollDirection: Axis.horizontal,
+            itemCount: studentServicesList.length,
+            padEnds: false,
+            itemBuilder: (context, index) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  MainButton(
+                    color: kidsColor3,
+                    height: 66,
+                    width: 66,
+                    hasShadow: true,
+                    borderRadius: 100,
+                    child: studentServicesList[index].iconBuilder(Colors.black),
+                  ),
+                  Gap(secondaryGap),
+                  Text(
+                    studentServicesList[index].title,
+                    textAlign: TextAlign.center,
+                    style: titleStyle,
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
+
+        Gap(secondaryGap),
+
+        SmoothPageIndicator(
+          controller: _pageController, // The same controller from above
+          count: studentServicesList.length - 2,
+          onDotClicked: (i) => _pageController.jumpToPage(i),
+          // effect: CustomizableEffect(
+          //   activeDotDecoration: DotDecoration(
+          //     width: 10,
+          //     height: 10,
+          //     color: kidsColor3,
+          //     rotationAngle: 180,
+          //     verticalOffset: -5,
+          //     borderRadius: BorderRadius.circular(0),
+          //     dotBorder: DotBorder(
+          //       padding: 2,
+          //       width: 2,
+          //       color: kidsColor3,
+          //     ),
+          //   ),
+          //   dotDecoration: DotDecoration(
+          //     width: 10,
+          //     height: 10,
+          //     // dotBorder: DotBorder(
+          //     //   padding: 2,
+          //     //   width: 2,
+          //     //   color: Colors.grey,
+          //     // ),
+          //     // borderRadius: BorderRadius.only(
+          //     //     topLeft: Radius.circular(2),
+          //     //     topRight: Radius.circular(16),
+          //     //     bottomLeft: Radius.circular(16),
+          //     //     bottomRight: Radius.circular(2)),
+          //     borderRadius: BorderRadius.circular(16),
+          //     verticalOffset: 0,
+          //     color: Colors.blueGrey.shade300,
+          //   ),
+          //   spacing: 6.0,
+          //   // activeColorOverride: (i) => colors[i],
+          //   // inActiveColorOverride: (i) => colors[i],
+          // ),
+          effect: WormEffect(
+            type: WormType.thin,
+            dotHeight: 10,
+            dotWidth: 10,
+            dotColor: Colors.blueGrey.shade100,
+            activeDotColor: kidsColor3,
+          ),
+        ),
+      ],
     );
   }
 }

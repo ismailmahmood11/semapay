@@ -255,9 +255,11 @@ class TaskCreationEducation extends StatelessWidget {
                                               Task(
                                                 name: state.name,
                                                 dueDate: state.dueDate,
-                                                amount: state.amount == 0
-                                                    ? 10
-                                                    : state.amount,
+                                                amount: state.isAmount
+                                                    ? state.amount == 0
+                                                        ? 10
+                                                        : state.amount
+                                                    : 100,
                                                 giftCard: state.giftCard,
                                                 book: books[i]['name']!,
                                                 isAmount: state.isAmount,
@@ -267,14 +269,18 @@ class TaskCreationEducation extends StatelessWidget {
                                         context.read<BalanceCubit>().balance(
                                               fatherBalance:
                                                   balance.fatherBalance -
-                                                      (state.amount == 0
-                                                          ? 10
-                                                          : state.amount),
+                                                      (state.isAmount
+                                                          ? state.amount == 0
+                                                              ? 10
+                                                              : state.amount
+                                                          : 100),
                                               pendingBalance:
                                                   balance.pendingBalance +
-                                                      (state.amount == 0
-                                                          ? 10
-                                                          : state.amount),
+                                                      (state.isAmount
+                                                          ? state.amount == 0
+                                                              ? 10
+                                                              : state.amount
+                                                          : 100),
                                             );
                                         context
                                             .read<TaskCreationCubit>()

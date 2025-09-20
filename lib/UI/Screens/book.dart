@@ -150,7 +150,7 @@ class Book extends StatelessWidget {
                                               task.isAmount
                                                   ? Row(
                                                       children: [
-                                                        saudiRiyal(15),
+                                                        jawaniCoin(15),
                                                         Gap(1),
                                                         Text(
                                                           task.amount

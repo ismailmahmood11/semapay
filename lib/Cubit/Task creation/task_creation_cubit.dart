@@ -6,17 +6,17 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
   TaskCreationCubit()
       : super(
           TaskCreationInitial(
-            name: '',
-            book: '',
-            giftCard: 'assets/images/Gift Cards/ps.png',
-            amount: 0,
-            dueDate: DateTime.now().add(Duration(days: 1)),
-            tasks: [],
-            isAmount: true,
-            index: 0,
-            isEditing: false,
-            taskIndexToEdit: -1,
-          ),
+              name: '',
+              book: '',
+              giftCard: 'assets/images/Gift Cards/ps.png',
+              amount: 0,
+              dueDate: DateTime.now().add(Duration(days: 1)),
+              tasks: [],
+              isAmount: true,
+              index: 0,
+              isEditing: false,
+              taskIndexToEdit: -1,
+              isKids: false),
         );
 
   void updateTask({
@@ -26,6 +26,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
     double? amount,
     DateTime? dueDate,
     bool? isAmount,
+    bool? isKids,
     int? index,
   }) {
     emit(TaskCreationInitial(
@@ -39,6 +40,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       index: index ?? state.index,
       isEditing: state.isEditing,
       taskIndexToEdit: state.taskIndexToEdit,
+      isKids: isKids ?? state.isKids,
     ));
   }
 
@@ -54,6 +56,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       index: state.index,
       isEditing: false,
       taskIndexToEdit: -1,
+      isKids: state.isKids,
     ));
   }
 
@@ -69,6 +72,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       index: state.index,
       isEditing: state.isEditing,
       taskIndexToEdit: state.taskIndexToEdit,
+      isKids: state.isKids,
     ));
   }
 
@@ -83,6 +87,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       tasks: newTasks,
       index: state.index,
       isEditing: state.isEditing,
+      isKids: state.isKids,
       taskIndexToEdit: state.taskIndexToEdit,
     ));
   }
@@ -99,6 +104,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       tasks: updatedTasks,
       index: state.index,
       isEditing: false,
+      isKids: state.isKids,
       taskIndexToEdit: -1,
     ));
   }
@@ -119,6 +125,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       tasks: updatedTasks,
       index: state.index,
       isEditing: false,
+      isKids: state.isKids,
       taskIndexToEdit: -1,
     ));
   }
@@ -135,6 +142,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       tasks: state.tasks,
       index: state.index,
       isEditing: true,
+      isKids: state.isKids,
       taskIndexToEdit: index,
     ));
   }
@@ -151,6 +159,7 @@ class TaskCreationCubit extends Cubit<TaskCreationState> {
       tasks: updatedTasks,
       index: state.index,
       isEditing: state.isEditing,
+      isKids: state.isKids,
       taskIndexToEdit: state.taskIndexToEdit,
     ));
   }
